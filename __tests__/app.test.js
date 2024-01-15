@@ -3,6 +3,7 @@ const app = require('../app');
 const connection = require('../db/connection');
 const seed = require('../db/seeds/seed');
 const testData = require('../db/data/test-data');
+const fs = require('fs/promises');
 
 
 
@@ -26,4 +27,17 @@ describe("GET", () => {
             });
         })
     });
+    describe('GET /api', () => {
+        test('should respond with all the available endpoints at the api', () => {
+            return request(app)
+            .get('/api')
+            .expect(200)
+            .then((response) => {
+                return fs.readFile('endpoints.json', 'utf-8')
+                .then((data) => {
+                    expect(response.body).toEqual({apis: JSON.parse(data)});
+                })
+            })
+        })
+    })
 });
