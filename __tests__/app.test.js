@@ -12,7 +12,7 @@ afterAll(() => connection.end());
 
 describe("GET", () => {
     describe("GET /api/topics", () => {
-        test('status code: 200 should return all topics with the appropriate properties', () => {
+        test('status code: 200', () => {
             return request(app)
             .get('/api/topics').expect(200)
         });
