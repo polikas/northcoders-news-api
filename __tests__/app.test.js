@@ -40,4 +40,11 @@ describe("GET", () => {
             })
         })
     })
+    describe('GET /api/articles/:article_id', () => {
+        test.only('status code: 200', () => {
+            return request(app)
+            .get('/api/articles/2')
+            .expect(200);
+        })
+    })
 });
