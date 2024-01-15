@@ -1,3 +1,8 @@
+const {fetchArticleById} = require('../models/articleById.model');
+
 module.exports.getArticleById = (request, response, next) => {
-    response.status(200).send();
+    const { article_id } = request.params;
+    fetchArticleById(article_id).then((article) => {
+        response.status(200).send({article});
+    })
 }
