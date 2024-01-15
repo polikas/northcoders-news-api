@@ -1,7 +1,7 @@
 const express = require('express');
 const {getTopics} = require('./controllers/topics.controller')
 const {getAvailableApis} = require('./controllers/api.controller')
-const {customErrors, psqlErrors, serverErrors} = require('./errors');
+const {serverErrors} = require('./errors');
 
 const app = express();
 
