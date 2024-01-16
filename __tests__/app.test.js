@@ -78,6 +78,7 @@ describe("GET", () => {
             .get('/api/articles')
             .expect(200)
             .then(({body}) => {
+                expect(body.articles).toHaveLength(5);
                 body.articles.forEach((article) => {
                     expect(article).toHaveProperty('author', expect.any(String));
                     expect(article).toHaveProperty('title', expect.any(String));
@@ -100,6 +101,47 @@ describe("GET", () => {
         test('status code 404 with a message Not Found e.g /api/articlesfsdf', () => {
             return request(app)
             .get('/api/articlesfsdf')
+            .expect(404)
+            .then(({body}) => {
+                expect(body.message).toBe('Not Found');
+            })
+        })
+    })
+    describe('GET /api/articles/:article_id/comments', () => {
+        test('status code 200 should get all comments for the given article_id and should have the appropriate properties', () => {
+            return request(app)
+            .get('/api/articles/1/comments')
+            .expect(200)
+            .then(({body}) => {
+                expect(body.comments).toHaveLength(11);
+                body.comments.forEach((comment) => {
+                    expect(comment).toHaveProperty('comment_id', expect.any(Number));
+                    expect(comment).toHaveProperty('votes', expect.any(Number));
+                    expect(comment).toHaveProperty('created_at', expect.any(String));
+                    expect(comment).toHaveProperty('author', expect.any(String));
+                    expect(comment).toHaveProperty('body', expect.any(String));
+                    expect(comment).toHaveProperty('article_id', expect.any(Number));
+                })
+            })
+        })
+        test('comments should be in most recent order', () => {
+            return request(app)
+            .get('/api/articles/1/comments')
+            .then(({body}) => {
+                expect(body.comments).toBeSortedBy('created_at', {descending: true});
+            })
+        })
+        test('status 400 when :article_id is invalid data type, should return message Bad Request as well', () => {
+            return request(app)
+            .get('/api/articles/kasd/comments')
+            .expect(400)
+            .then(({body}) => {
+                expect(body.message).toBe('Bad Request');
+            })
+        })
+        test('status 404 when no url found and message should be Not Found', () => {
+            return request(app)
+            .get('/api/articles/1/test')
             .expect(404)
             .then(({body}) => {
                 expect(body.message).toBe('Not Found');
