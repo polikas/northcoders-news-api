@@ -5,4 +5,7 @@ module.exports.getArticleById = (request, response, next) => {
     fetchArticleById(article_id).then((article) => {
         response.status(200).send({article});
     })
+    .catch((error) => {
+        next(error);
+    })
 }

@@ -60,5 +60,21 @@ describe("GET", () => {
                     votes: 0})
             })
         })
+        test('status 400 with message Bad Request if invalid_id has invalid data type', () => {
+            return request(app)
+            .get('/api/articles/invalid')
+            .expect(400)
+            .then(({body}) => {
+                expect(body.message).toBe('Bad Request');
+            })
+        })
+        test('status 404 with message Not Found if id does not exist', () => {
+            return request(app)
+            .get('/api/articles/45648')
+            .expect(404)
+            .then(({body}) => {
+                expect(body.message).toBe('Not Found');
+            })
+        })
     })
 });
