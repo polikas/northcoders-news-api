@@ -4,6 +4,7 @@ const connection = require('../db/connection');
 const seed = require('../db/seeds/seed');
 const testData = require('../db/data/test-data');
 const fs = require('fs/promises');
+const { expect } = require('@jest/globals');
 
 
 
@@ -65,6 +66,40 @@ describe("GET", () => {
         test('status 404 with message Not Found if id does not exist', () => {
             return request(app)
             .get('/api/articles/45648')
+            .expect(404)
+            .then(({body}) => {
+                expect(body.message).toBe('Not Found');
+            })
+        })
+    })
+    describe('GET /api/articles', () => {
+        test('status code 200 should return articles with the appropriate properties', () => {
+            return request(app)
+            .get('/api/articles')
+            .expect(200)
+            .then(({body}) => {
+                body.articles.forEach((article) => {
+                    expect(article).toHaveProperty('author', expect.any(String));
+                    expect(article).toHaveProperty('title', expect.any(String));
+                    expect(article).toHaveProperty('article_id', expect.any(Number));
+                    expect(article).toHaveProperty('topic', expect.any(String));
+                    expect(article).toHaveProperty('created_at', expect.any(String));
+                    expect(article).toHaveProperty('votes', expect.any(Number));
+                    expect(article).toHaveProperty('article_img_url', expect.any(String));
+                    expect(article).toHaveProperty('comment_count', expect.any(Number));
+                })
+            })
+        })
+        test('should sort articles in descending order', () => {
+            return request(app)
+            .get('/api/articles')
+            .then(({body}) => {
+                expect(body.articles).toBeSortedBy('created_at', {descending: true})
+            })
+        })
+        test('status code 404 with a message Not Found e.g /api/articlesfsdf', () => {
+            return request(app)
+            .get('/api/articlesfsdf')
             .expect(404)
             .then(({body}) => {
                 expect(body.message).toBe('Not Found');
