@@ -41,17 +41,11 @@ describe("GET", () => {
         })
     })
     describe('GET /api/articles/:article_id', () => {
-        test('status code: 200', () => {
-            return request(app)
-            .get('/api/articles/2')
-            .expect(200);
-        })
-        test('should return an article by article_id', () => {
+        test('status code: 200 it should return an article by article_id', () => {
             return request(app)
             .get('/api/articles/4')
             .expect(200)
             .then(({body}) => {
-                console.log(body, '<--- article Data');
                 expect(body.article).toEqual({article_id: 4, 
                     article_img_url: "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700", 
                     author: "rogersop", 
