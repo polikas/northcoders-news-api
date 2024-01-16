@@ -16,6 +16,8 @@ app.use(psqlErrors);
 app.use(customErrors);
 app.use(serverErrors);
 
-
+app.use((request, response, next) => {
+    response.status(404).send({message: 'Not Found'});
+})
 
 module.exports = app;

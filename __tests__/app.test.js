@@ -4,6 +4,7 @@ const connection = require('../db/connection');
 const seed = require('../db/seeds/seed');
 const testData = require('../db/data/test-data');
 const fs = require('fs/promises');
+const { expect } = require('@jest/globals');
 
 
 
@@ -94,6 +95,14 @@ describe("GET", () => {
             .get('/api/articles')
             .then(({body}) => {
                 expect(body.articles).toBeSortedBy('created_at', {descending: true})
+            })
+        })
+        test('status code 404 with a message Not Found e.g /api/articlesfsdf', () => {
+            return request(app)
+            .get('/api/articlesfsdf')
+            .expect(404)
+            .then(({body}) => {
+                expect(body.message).toBe('Not Found');
             })
         })
     })
