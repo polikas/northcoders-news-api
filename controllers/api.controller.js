@@ -1,11 +1,5 @@
-const { response } = require('../app');
-const {fetchAvailableApis} = require('../models/api.model')
+const apis = require('../endpoints.json');
 
-module.exports.getAvailableApis = (request, respond, next) => {
-    console.log('controller');
-    const filePath = 'endpoints.json'
-    fetchAvailableApis(filePath).then((data) => {
-        const apis = JSON.parse(data);
-        respond.status(200).send({apis});
-    })
+module.exports.getAvailableApis = (request, response, next) => {
+    response.status(200).send({apis});
 }
