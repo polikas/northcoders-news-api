@@ -216,3 +216,32 @@ describe('PATCH', () => {
         })
     })
 })
+
+describe('DELETE', () => {
+    describe('DELETE /api/comments/:comment_id', () => {
+        test('status 204 No Content should delete a comment for given comment id', () => {
+            return request(app)
+            .delete('/api/comments/1')
+            .expect(204)
+            .then(({body}) => {
+                expect(body).toEqual({});
+            })
+        })
+        test('status 404 with message Not Found', () => {
+            return request(app)
+            .delete('/api/comments/8989')
+            .expect(404)
+            .then(({body}) => {
+                expect(body.message).toBe('Not Found');
+            })
+        })
+        test('status 400 with message Bad Request', () => {
+            return request(app)
+            .delete('/api/comments/test')
+            .expect(400)
+            .then(({body}) => {
+                expect(body.message).toBe('Bad Request');
+            })
+        })
+    })
+})
