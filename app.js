@@ -5,6 +5,7 @@ const {getArticleById} = require('./controllers/articleById.controller')
 const {getArticles} = require('./controllers/articles.controller')
 const {getCommentsByArticleId} = require('./controllers/commentsByArticleId.controller')
 const {addComment} = require('./controllers/addComment.controller')
+const {updateVotesByArticleId} = require('./controllers/updateVotes.controller')
 const {serverErrors, psqlErrors, customErrors} = require('./errors');
 
 const app = express();
@@ -17,6 +18,8 @@ app.get('/api/articles', getArticles);
 app.get('/api/articles/:article_id/comments', getCommentsByArticleId);
 
 app.post('/api/articles/:article_id/comments', addComment);
+
+app.patch('/api/articles/:article_id', updateVotesByArticleId);
 
 app.use(psqlErrors);
 app.use(customErrors);
