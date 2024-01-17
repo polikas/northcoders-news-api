@@ -193,3 +193,26 @@ describe('POST', () => {
         })
     })
 })
+
+describe('PATCH', () => {
+    describe('PATCH /api/articles/:article_id', () => {
+        test('status code 200 should update an article vote column for given article_id ', () => {
+            return request(app)
+            .patch('/api/articles/1')
+            .send({votes: 50})
+            .expect(200)
+            .then(({body}) => {
+                expect(body.inc_vote.votes).toBe(100 + 50);
+            })
+        })
+        test('status 400 with message Bad Request when invalid data type is passed in to the body', () => {
+            return request(app)
+            .patch('/api/articles/1')
+            .send({votes: 'hello'})
+            .expect(400)
+            .then(({body}) => {
+                expect(body.message).toBe('Bad Request');
+            })
+        })
+    })
+})
