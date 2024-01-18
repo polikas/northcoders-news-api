@@ -171,6 +171,26 @@ describe("GET", () => {
             });
         });
     });
+    describe('GET /api/articles?topic=mitch', () => {
+        test('status 200 should response with all the articles for given query topic', () => {
+            return request(app)
+            .get('/api/articles?topic=mitch')
+            .expect(200)
+            .then(({body}) => {
+                expect(body.articles.forEach((article) => {
+                    expect(article.topic).toBe('mitch');
+                }));
+            });
+        });
+        test('status 404 with message Not Found if topic does not exist', () => {
+            return request(app)
+            .get('/api/articles?topic=jhkjh')
+            .expect(404)
+            .then(({body}) => {
+                expect(body.message).toBe('Not Found');
+            })
+        })
+    });
 });
 
 describe('POST', () => {
