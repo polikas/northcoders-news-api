@@ -4,6 +4,7 @@ const {getAvailableApis} = require('./controllers/api.controller')
 const {getArticleById} = require('./controllers/articleById.controller')
 const {getArticles} = require('./controllers/articles.controller')
 const {getCommentsByArticleId} = require('./controllers/commentsByArticleId.controller')
+const {getUsers} = require('./controllers/getUsers.controller')
 const {addComment} = require('./controllers/addComment.controller')
 const {updateVotesByArticleId} = require('./controllers/updateVotes.controller')
 const {deleteComment} = require('./controllers/deleteComment.controller')
@@ -17,6 +18,7 @@ app.get('/api', getAvailableApis);
 app.get('/api/articles/:article_id', getArticleById);
 app.get('/api/articles', getArticles);
 app.get('/api/articles/:article_id/comments', getCommentsByArticleId);
+app.get('/api/users', getUsers);
 
 app.post('/api/articles/:article_id/comments', addComment);
 
