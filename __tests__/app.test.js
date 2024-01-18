@@ -5,6 +5,7 @@ const seed = require('../db/seeds/seed');
 const testData = require('../db/data/test-data');
 const fs = require('fs/promises');
 const { expect } = require('@jest/globals');
+const users = require('../db/data/test-data/users');
 
 
 
@@ -148,6 +149,28 @@ describe("GET", () => {
             })
         })
     })
+    describe('GET /api/users', () => {
+        test('status 200 should return all users object with appropriate properties', () => {
+            return request(app)
+            .get('/api/users')
+            .expect(200)
+            .then(({body}) => {
+                body.users.forEach((user) => {
+                    expect(user).toHaveProperty('username', expect.any(String));
+                    expect(user).toHaveProperty('name', expect.any(String));
+                    expect(user).toHaveProperty('avatar_url', expect.any(String));
+                });
+            });
+        });
+        test('status code 404 with a message Not Found e.g /api/userito', () => {
+            return request(app)
+            .get('/api/userito')
+            .expect(404)
+            .then(({body}) => {
+                expect(body.message).toBe('Not Found');
+            });
+        });
+    });
 });
 
 describe('POST', () => {
