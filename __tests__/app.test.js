@@ -232,12 +232,37 @@ describe('POST', () => {
                 expect(body.message).toBe('Bad Request');
             })
         })
+        test('status 400 Bad Request message due to invalid data', () => {
+            return request(app)
+            .post('/api/articles/1432742/comments')
+            .send(
+                {
+                    author: 'butter_bridge'
+                })
+            .expect(400)
+            .then(({body}) => {
+                expect(body.message).toBe('Bad Request');
+            })
+        })
         test('status 404 Not Found message', () => {
             return request(app)
             .post('/api/articles/1/commentygfks')
             .send(
                 {
                     author: 'butter_bridge',
+                    body: 'my first comment'
+                })
+            .expect(404)
+            .then(({body}) => {
+                expect(body.message).toBe('Not Found');
+            })
+        })
+        test('status 404 Not Found message', () => {
+            return request(app)
+            .post('/api/articles/1/comments')
+            .send(
+                {
+                    author: 'khjhkjh',
                     body: 'my first comment'
                 })
             .expect(404)
