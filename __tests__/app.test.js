@@ -128,6 +128,14 @@ describe("GET", () => {
                 })
             })
         })
+        test('status 200 should return empty array if article exists but no comments', () => {
+            return request(app)
+            .get('/api/articles/2/comments')
+            .expect(200)
+            .then(({body}) => {
+                expect(body.comments).toHaveLength(0);
+            })
+        })
         test('comments should be in most recent order', () => {
             return request(app)
             .get('/api/articles/1/comments')
@@ -145,7 +153,7 @@ describe("GET", () => {
         })
         test('status 404 when no url found and message should be Not Found', () => {
             return request(app)
-            .get('/api/articles/1/test')
+            .get('/api/articles/1000/comments')
             .expect(404)
             .then(({body}) => {
                 expect(body.message).toBe('Not Found');
