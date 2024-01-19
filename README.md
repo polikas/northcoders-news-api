@@ -2,7 +2,7 @@
 
 Link to the hosted application: -> https://articles-service-api.onrender.com/api  
 
-The project is focused on backend functionality on building an testing api endpoints on a given PSQl database following TDD methodology.  
+The project is focused on backend functionality using MVC design pattern, to build and test api endpoints on a given PSQl database following TDD methodology.  
 Coding language used for this project is pure JavaScript along with a variety of frameworks and libraries such as Jest, Supertest, Express, Postgres, PG-Format, dotenv.  
 
 # Instructions
