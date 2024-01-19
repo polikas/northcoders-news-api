@@ -22,15 +22,15 @@ Make sure you are on the root level of your folder before installing anything ju
 Minimum Node.js version should be 20.10.0
 Minimum Postgres version should be 8.11.3
 
-npm install
-npm install dotenv
-npm install express
-npm install pg
-npm install pg-format
-npm install supertest
-npm install jest
-npm install jest-extended
-npm install jest-sorted
+npm install  
+npm install dotenv  
+npm install express  
+npm install pg  
+npm install pg-format  
+npm install supertest  
+npm install jest  
+npm install jest-extended  
+npm install jest-sorted  
 
 # Seed Local Database Scripts
 
