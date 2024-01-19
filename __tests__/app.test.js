@@ -89,6 +89,14 @@ describe("GET", () => {
                     expect(article).toHaveProperty('created_at', expect.any(String));
                     expect(article).toHaveProperty('votes', expect.any(Number));
                     expect(article).toHaveProperty('article_img_url', expect.any(String));
+                })
+            })
+        })
+        test('should check if the comment_count property has been added to articles', () => {
+            return request(app)
+            .get('/api/articles')
+            .then(({body}) => {
+                body.articles.forEach((article) => {
                     expect(article).toHaveProperty('comment_count', expect.any(Number));
                 })
             })
