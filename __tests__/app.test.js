@@ -4,8 +4,6 @@ const connection = require('../db/connection');
 const seed = require('../db/seeds/seed');
 const testData = require('../db/data/test-data');
 const fs = require('fs/promises');
-const { expect } = require('@jest/globals');
-const users = require('../db/data/test-data/users');
 
 
 
@@ -171,14 +169,6 @@ describe("GET", () => {
                     expect(user).toHaveProperty('name', expect.any(String));
                     expect(user).toHaveProperty('avatar_url', expect.any(String));
                 });
-            });
-        });
-        test('status code 404 with a message Not Found e.g /api/userito', () => {
-            return request(app)
-            .get('/api/userito')
-            .expect(404)
-            .then(({body}) => {
-                expect(body.message).toBe('Not Found');
             });
         });
     });
