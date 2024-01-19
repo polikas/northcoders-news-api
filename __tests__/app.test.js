@@ -281,13 +281,38 @@ describe('PATCH', () => {
             .send({votes: 50})
             .expect(200)
             .then(({body}) => {
-                expect(body.inc_vote.votes).toBe(100 + 50);
+                expect(body.inc_vote).toHaveProperty('article_id', expect.any(Number))
+                expect(body.inc_vote).toHaveProperty('title', expect.any(String))
+                expect(body.inc_vote).toHaveProperty('topic', expect.any(String))
+                expect(body.inc_vote).toHaveProperty('author', expect.any(String))
+                expect(body.inc_vote).toHaveProperty('body', expect.any(String))
+                expect(body.inc_vote).toHaveProperty('created_at', expect.any(String))
+                expect(body.inc_vote.votes).toBe(100 + 50)
+                expect(body.inc_vote).toHaveProperty('article_img_url', expect.any(String))
             })
         })
         test('status 400 with message Bad Request when invalid data type is passed in to the body', () => {
             return request(app)
             .patch('/api/articles/1')
             .send({votes: 'hello'})
+            .expect(400)
+            .then(({body}) => {
+                expect(body.message).toBe('Bad Request');
+            })
+        })
+        test('status 404 with message Not Found when article id does not exist', () => {
+            return request(app)
+            .patch('/api/articles/1000')
+            .send({votes: 50})
+            .expect(404)
+            .then(({body}) => {
+                expect(body.message).toBe('Not Found');
+            })
+        })
+        test('status 400 with message Bad Request when invalid data type is passed in to the endpoint', () => {
+            return request(app)
+            .patch('/api/articles/hello')
+            .send({votes: 50})
             .expect(400)
             .then(({body}) => {
                 expect(body.message).toBe('Bad Request');
