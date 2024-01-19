@@ -1,3 +1,5 @@
+# Summary
+
 To run the project and have access to the database you need to add env.development and env.test files to your project
 
 Link to the hosted application: -> https://articles-service-api.onrender.com/api
@@ -5,7 +7,7 @@ Link to the hosted application: -> https://articles-service-api.onrender.com/api
 The project is focused on backend functionality on building an testing api endpoints on a given PSQl database following TDD methodology.
 Coding language used for this project is pure JavaScript along with a variety of frameworks and libraries such as Jest, Supertest, Express, Postgres, PG-Format, dotenv.
 
-Instructions
+# Instructions
 
 Navigate to the repo -> https://github.com/polikas/northcoders-news-api
 Clone the repo by clicking the Code button and copy at your clipboard the HTTPS link
@@ -13,7 +15,7 @@ Create a folder for the cloning repo at your local machine
 Now we can use the terminal navigate to path of the folder we just created
 Enter this command: git clone "paste the url that you saved at your clipboard from previous step, no need quotations just URL"
 
-Install Dependencies
+# Install Dependencies
 
 Make sure you are on the root level of your folder before installing anything just to make sure everything is in same place.
 
@@ -30,7 +32,7 @@ npm install jest
 npm install jest-extended
 npm install jest-sorted
 
-Seed Local Database Scripts
+# Seed Local Database Scripts
 
 npm run setup-dbs
 npm run seed (create tables and insert test data at the database)
