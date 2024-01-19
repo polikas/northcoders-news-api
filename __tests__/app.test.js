@@ -191,6 +191,14 @@ describe("GET", () => {
                 expect(body.message).toBe('Not Found');
             })
         })
+        test('status 404 with message Not Found if topic is valid but has no articles', () => {
+            return request(app)
+            .get('/api/articles?topic=paper')
+            .expect(404)
+            .then(({body}) => {
+                expect(body.message).toBe('Not Found');
+            })
+        })
     });
 });
 
